@@ -36,7 +36,8 @@ Proveer de un sistema simple que permita realizar compras y asi mismo mantener d
 4. **Registro de ventas**: Necesitamos un sistema que pueda registrar de manera detallada cada compra hecha y todos sus detalles y que esta sea fácil para el departamento de ventas poder verificarla a fondo.
 
 ## Diagrama entidad relación (DER)
-![ecomerce diagram](https://github.com/user-attachments/assets/d28309dd-c9c1-418d-97d4-f33417a3dcff)
+![ecommerce diagram](https://github.com/user-attachments/assets/906d5806-6fa5-4cfe-a245-9380599119fb)
+
 
 ## Listado de tablas y descripción
 ### Tabla `product_inventory`
