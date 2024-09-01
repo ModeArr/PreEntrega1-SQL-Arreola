@@ -33,7 +33,7 @@ Se busca hacer una base de datos relacional para un ecommerce, que permita hacer
 4. **Registro de ventas**: Necesitamos un sistema que pueda registrar de manera detallada cada compra hecha y todos sus detalles y que esta sea fácil para el departamento de ventas poder verificarla a fondo.
 
 ## Diagrama entidad relación (DER)
-**subir imagen aquí*
+![Alt text](/ecomerce diagram.svg)
 
 ## Listado de tablas y descripción
 ## `product_inventory`
