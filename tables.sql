@@ -6,7 +6,7 @@ USE `ecommerce` ;
 -- Table `ecommerce`.`product_inventory`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`product_inventory` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_product_inventory` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `quantity` INT UNSIGNED NOT NULL,
   `created_at` DATETIME NOT NULL,
   `modified_at` DATETIME NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`product_inventory` (
 -- Table `ecommerce`.`discount`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`discount` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_discount` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(80) NOT NULL,
   `description` VARCHAR(120) NULL,
   `discount_percent` TINYINT UNSIGNED NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`discount` (
 -- Table `ecommerce`.`product_category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`product_category` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_product_category` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(80) NOT NULL,
   `description` VARCHAR(180) NULL,
   `created_at` DATETIME NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`product_category` (
 -- Table `ecommerce`.`product`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`product` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_product` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(100) NOT NULL,
   `description` VARCHAR(300) NULL,
   `SKU` VARCHAR(50) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`product` (
 -- Table `ecommerce`.`order_details`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`order_details` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_order_details` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NOT NULL,
   `total` DECIMAL(10,2) NOT NULL,
   `payment_id` INT NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`order_details` (
 -- Table `ecommerce`.`payment_details`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`payment_details` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_payment_details` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `order_id` INT NOT NULL,
   `amount` DECIMAL(10,2) NOT NULL,
   `provider` VARCHAR(45) NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`payment_details` (
 -- Table `ecommerce`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_user` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`user` (
 -- Table `ecommerce`.`order_items`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`order_items` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_order_items` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `order_id` INT NOT NULL,
   `product_id` INT NOT NULL,
   `created_at` DATETIME NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`order_items` (
 -- Table `ecommerce`.`user_address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`user_address` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_user_address` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NOT NULL,
   `address_line1` VARCHAR(60) NOT NULL,
   `address_line2` VARCHAR(45) NULL,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`user_address` (
 -- Table `ecommerce`.`user_payment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`user_payment` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_user_payment` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NOT NULL,
   `payment_type` VARCHAR(45) NOT NULL,
   `provider` VARCHAR(45) NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`user_payment` (
 -- Table `ecommerce`.`shopping_session`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`shopping_session` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_shopping_session` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` INT NOT NULL,
   `total` DECIMAL(10,2) NOT NULL,
   `created_at` DATETIME NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`shopping_session` (
 -- Table `ecommerce`.`cart_item`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ecommerce`.`cart_item` (
-  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_cart_item` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `session_id` INT NOT NULL,
   `product_id` INT NOT NULL,
   `quantity` INT UNSIGNED NOT NULL,
@@ -151,54 +151,54 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`cart_item` (
 ALTER TABLE `ecommerce`.`product`
   ADD CONSTRAINT `fk_product_inventory`
     FOREIGN KEY (`inventory_id`)
-    REFERENCES `ecommerce`.`product_inventory` (`id`),
+    REFERENCES `ecommerce`.`product_inventory` (`id_product_inventory`),
   ADD CONSTRAINT `fk_product_discount`
     FOREIGN KEY (`discount_id`)
-    REFERENCES `ecommerce`.`discount` (`id`),
+    REFERENCES `ecommerce`.`discount` (`id_discount`),
   ADD CONSTRAINT `fk_product_category`
     FOREIGN KEY (`category_id`)
-    REFERENCES `ecommerce`.`product_category` (`id`);
+    REFERENCES `ecommerce`.`product_category` (`id_product_category`);
 
 ALTER TABLE `ecommerce`.`order_details`
   ADD CONSTRAINT `fk_order_payment`
     FOREIGN KEY (`payment_id`)
-    REFERENCES `ecommerce`.`payment_details` (`id`),
+    REFERENCES `ecommerce`.`payment_details` (`id_payment_details`),
   ADD CONSTRAINT `fk_order_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `ecommerce`.`user` (`id`);
+    REFERENCES `ecommerce`.`user` (`id_user`);
 
 ALTER TABLE `ecommerce`.`payment_details`
   ADD CONSTRAINT `fk_payment_order`
     FOREIGN KEY (`order_id`)
-    REFERENCES `ecommerce`.`order_details` (`id`);
+    REFERENCES `ecommerce`.`order_details` (`id_order_details`);
 
 ALTER TABLE `ecommerce`.`order_items`
   ADD CONSTRAINT `fk_order_items_product`
     FOREIGN KEY (`product_id`)
-    REFERENCES `ecommerce`.`product` (`id`),
+    REFERENCES `ecommerce`.`product` (`id_product`),
   ADD CONSTRAINT `fk_order_items_order`
     FOREIGN KEY (`order_id`)
-    REFERENCES `ecommerce`.`order_details` (`id`);
+    REFERENCES `ecommerce`.`order_details` (`id_order_details`);
 
 ALTER TABLE `ecommerce`.`user_address`
   ADD CONSTRAINT `fk_user_address_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `ecommerce`.`user` (`id`);
+    REFERENCES `ecommerce`.`user` (`id_user`);
 
 ALTER TABLE `ecommerce`.`user_payment`
   ADD CONSTRAINT `fk_user_payment_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `ecommerce`.`user` (`id`);
+    REFERENCES `ecommerce`.`user` (`id_user`);
 
 ALTER TABLE `ecommerce`.`shopping_session`
   ADD CONSTRAINT `fk_shopping_session_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `ecommerce`.`user` (`id`);
+    REFERENCES `ecommerce`.`user` (`id_user`);
 
 ALTER TABLE `ecommerce`.`cart_item`
   ADD CONSTRAINT `fk_cart_item_product`
     FOREIGN KEY (`product_id`)
-    REFERENCES `ecommerce`.`product` (`id`),
+    REFERENCES `ecommerce`.`product` (`id_product`),
   ADD CONSTRAINT `fk_cart_item_session`
     FOREIGN KEY (`session_id`)
-    REFERENCES `ecommerce`.`shopping_session` (`id`);
+    REFERENCES `ecommerce`.`shopping_session` (`id_shopping_session`);
