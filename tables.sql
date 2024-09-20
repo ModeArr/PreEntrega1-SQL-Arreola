@@ -71,9 +71,13 @@ CREATE TABLE IF NOT EXISTS `ecommerce`.`payment_details` (
   `order_id` INT NOT NULL,
   `amount` DECIMAL(10,2) NOT NULL,
   `provider` VARCHAR(45) NOT NULL,
-  `status` VARCHAR(45) NOT NULL,
+  `status` ENUM('pending', 'successful', 'failed', 'refunded') NOT NULL DEFAULT 'pending',
+  `payment_method` VARCHAR(45) NOT NULL,
+  `transaction_id` VARCHAR(100) NULL,
+  `payment_date` DATETIME NULL, 
   `created_at` DATETIME NOT NULL,
-  `modified_at` DATETIME NULL);
+  `modified_at` DATETIME NULL
+);
 
 -- -----------------------------------------------------
 -- Table `ecommerce`.`user`

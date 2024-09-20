@@ -109,15 +109,19 @@ Esta tabla almacena los detalles de los pedidos realizados por los usuarios, inc
 ### Tabla `payment_details`
 Esta tabla guarda los detalles de los pagos realizados, incluyendo el proveedor de pagos y el estado del pago.
 
-| Columna       | Tipo de Dato  | Atributo                                 | Descripción                                   |
-|---------------|---------------|------------------------------------------|-----------------------------------------------|
-| `id`          | INT           | PRIMARY KEY, AUTO_INCREMENT, NOT NULL    | Identificador único del pago.                 |
-| `order_id`    | INT           | NOT NULL                                 | Clave foránea a la tabla `order_details`.     |
-| `amount`      | DECIMAL(10,2) | NOT NULL                                 | Monto del pago.                               |
-| `provider`    | VARCHAR(45)   | NOT NULL                                 | Proveedor del servicio de pago.               |
-| `status`      | VARCHAR(45)   | NOT NULL                                 | Estado del pago (e.g., completado, pendiente).|
-| `created_at`  | DATETIME      | NOT NULL                                 | Fecha y hora de creación del registro.        |
-| `modified_at` | DATETIME      |                                          | Fecha y hora de la última modificación.       |
+| Columna        | Tipo de Dato        | Atributo        | Descripción                                                                 |
+|--------------------|-------------------------|---------------------|---------------------------------------------------------------------------------|
+| `id_payment_details`| INT                     | PRIMARY KEY, NOT NULL, AUTO_INCREMENT | Identificador único del detalle de pago.                                         |
+| `order_id`         | INT                     | NOT NULL            | Identificador de la orden asociada al pago. Referencia a `order_details`.        |
+| `amount`           | DECIMAL(10,2)           | NOT NULL            | Monto total pagado por la orden.                                                |
+| `provider`         | VARCHAR(45)             | NOT NULL            | Proveedor del servicio de pago (ej. PayPal, Stripe, Banco, etc.).                |
+| `status`           | ENUM('pending', 'successful', 'failed', 'refunded') | NOT NULL, DEFAULT 'pending' | Estado del pago: pendiente, exitoso, fallido o reembolsado.                    |
+| `payment_method`    | VARCHAR(45)             | NOT NULL            | Método de pago utilizado (ej. tarjeta de crédito, transferencia bancaria, etc.). |
+| `transaction_id`   | VARCHAR(100)            | NULL                | Identificador de transacción proporcionado por el proveedor de pago (opcional).  |
+| `payment_date`     | DATETIME                | NULL                | Fecha en la que se realizó el pago (opcional, útil si el pago no es inmediato).  |
+| `created_at`       | DATETIME                | NOT NULL            | Fecha y hora en que se creó el registro del detalle del pago.                    |
+| `modified_at`      | DATETIME                | NULL                | Fecha y hora de la última modificación del registro (opcional).                  |
+
 
 ### Tabla `user`
 Esta tabla almacena la información de los usuarios registrados en la plataforma, incluyendo datos personales y credenciales.
